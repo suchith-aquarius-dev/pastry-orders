@@ -1,0 +1,93 @@
+{
+  "version": "6.0",
+  "screens": [
+    {
+      "id": "CATEGORY",
+      "title": "What are you craving?",
+      "layout": {
+        "type": "SingleColumnLayout",
+        "children": [
+          {
+            "type": "RadioButtonsGroup",
+            "name": "category",
+            "label": "Choose a category",
+            "required": true,
+            "data-source": [
+              { "id": "cakes", "title": "Cakes" },
+              { "id": "pastries", "title": "Pastries" },
+              { "id": "custom", "title": "Custom Order" }
+            ]
+          },
+          {
+            "type": "Footer",
+            "label": "Next",
+            "on-click-action": { "name": "navigate", "next": { "name": "ITEM_DETAILS" } }
+          }
+        ]
+      }
+    },
+    {
+      "id": "ITEM_DETAILS",
+      "title": "Tell us more",
+      "layout": {
+        "type": "SingleColumnLayout",
+        "children": [
+          {
+            "type": "TextInput",
+            "name": "item_name",
+            "label": "Item / flavor",
+            "required": true
+          },
+          {
+            "type": "TextInput",
+            "name": "quantity",
+            "label": "Quantity",
+            "input-type": "number",
+            "required": true
+          },
+          {
+            "type": "TextInput",
+            "name": "custom_message",
+            "label": "Message on cake (optional)",
+            "required": false
+          },
+          {
+            "type": "Footer",
+            "label": "Next",
+            "on-click-action": { "name": "navigate", "next": { "name": "PICKUP" } }
+          }
+        ]
+      }
+    },
+    {
+      "id": "PICKUP",
+      "title": "When do you need it?",
+      "terminal": true,
+      "layout": {
+        "type": "SingleColumnLayout",
+        "children": [
+          {
+            "type": "DatePicker",
+            "name": "pickup_date",
+            "label": "Pickup date",
+            "required": true
+          },
+          {
+            "type": "Footer",
+            "label": "Submit Order",
+            "on-click-action": {
+              "name": "complete",
+              "payload": {
+                "category": "${form.category}",
+                "item_name": "${form.item_name}",
+                "quantity": "${form.quantity}",
+                "custom_message": "${form.custom_message}",
+                "pickup_date": "${form.pickup_date}"
+              }
+            }
+          }
+        ]
+      }
+    }
+  ]
+}
